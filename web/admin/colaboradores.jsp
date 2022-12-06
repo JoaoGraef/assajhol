@@ -129,23 +129,23 @@
                             </tbody>
                         </table>
                     </div>                           
-                            
-                        <%
-                            if(request.getParameter("funcao")!= null && request.getParameter("funcao").equals("excluir")){
-                                String id = request.getParameter("id");
-                                try{
-                                    Class.forName("org.postgresql.Driver");
-                                    con = DriverManager.getConnection(url,usuario,senhaBD);
-                                    st = con.createStatement();
-                                    st.executeUpdate("DELETE from colaboradores WHERE id = '"+id+"' ");
 
-                                    response.sendRedirect("colaboradores.jsp?status=3"); //Registro deletado com sucesso.
+                    <%
+                        if(request.getParameter("funcao")!= null && request.getParameter("funcao").equals("excluir")){
+                            String id = request.getParameter("id");
+                            try{
+                                Class.forName("org.postgresql.Driver");
+                                con = DriverManager.getConnection(url,usuario,senhaBD);
+                                st = con.createStatement();
+                                st.executeUpdate("DELETE from colaboradores WHERE id = '"+id+"' ");
 
-                                }catch(Exception e){
-                                    out.println(e);
-                                }
+                                response.sendRedirect("colaboradores.jsp?status=3"); //Registro deletado com sucesso.
+
+                            }catch(Exception e){
+                                out.println(e);
                             }
-                        %>
+                        }
+                    %>
                 </main>
                 <jsp:include page="includes/footer.jsp" />
             </div>

@@ -12,6 +12,17 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                     Usuários
                 </a>
+                
+                 <a class="nav-link" href="contato.jsp">
+                    <div class="sb-nav-link-icon"><i class="far fa-edit"></i></div>
+                    Contato/Mensagem
+                </a>
+                
+                <a class="nav-link" href="aSociais.jsp">
+                    <div class="sb-nav-link-icon"><i class="fas fa-file-image"></i></div>
+                    Ações Sociais
+                </a>
+
 
             </div>
         </div>

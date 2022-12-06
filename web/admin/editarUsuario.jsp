@@ -48,32 +48,32 @@
                             st = con.createStatement();
                             rs = st.executeQuery("SELECT * from usuarios where id = '" + id + "' ");
                             while (rs.next()) { %>
-                                <div class="container-fluid px-4">
-                                    <small>Formulário de alteração de usuários</small>
-                                    <hr>
-                                    <form action="./config/editarUsuario.jsp?id=<%=rs.getString("id")%>" method="POST">
-                                        <div class="mb-3">
-                                            <label class="form-label">Nome</label>
-                                            <input type="text" class="form-control" name="nome" value="<%=rs.getString("nome")%>" />
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Email</label>
-                                            <input type="email" class="form-control" name="email" value="<%=rs.getString("email")%>" />
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Senha</label>
-                                            <input type="password" class="form-control" name="senha" value="<%=rs.getString("senha")%>" />
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Atualizar dados</button>
-                                    </form>
-                                </div>
+                    <div class="container-fluid px-4">
+                        <small>Formulário de alteração de usuários</small>
+                        <hr>
+                        <form action="./config/editarUsuario.jsp?id=<%=rs.getString("id")%>" method="POST">
+                            <div class="mb-3">
+                                <label class="form-label">Nome</label>
+                                <input type="text" class="form-control" name="nome" value="<%=rs.getString("nome")%>" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" name="email" value="<%=rs.getString("email")%>" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Senha</label>
+                                <input type="password" class="form-control" name="senha" value="<%=rs.getString("senha")%>" />
+                            </div>
+                            <button type="submit" class="btn btn-primary">Atualizar dados</button>
+                        </form>
+                    </div>
 
-                            <% }
-                                } catch (Exception e) {
-                                    out.print(e);
-                                }
+                    <% }
+                        } catch (Exception e) {
+                            out.print(e);
+                        }
 
-                            %>
+                    %>
 
                 </main>
                 <jsp:include page="includes/footer.jsp" />
