@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Admin - Ações Sociais</title>
+        <title>Admin - Colaboradores</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
@@ -17,43 +17,35 @@
         <%
             String nomeUsuario = (String) session.getAttribute("NomeUsuario");
             if (nomeUsuario == null) {
-                response.sendRedirect("../index.jsp?erro=3");
+                response.sendRedirect("index.jsp?erro=3");
             }
         %>
-        <jsp:include page="./includes/nav.jsp" />
+        <jsp:include page="includes/nav.jsp" />
         <div id="layoutSidenav">
-            <jsp:include page="./includes/sidenav.jsp" />
+            <jsp:include page="includes/sidenav.jsp" />
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Ações Sociais</h1>
+                        <h1 class="mt-4">Colaboradores</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Gerenciar Ações Sociais</li>
+                            <li class="breadcrumb-item active">Gerenciar Colaboradores</li>
                         </ol>
                     </div>
                     <div class="container-fluid px-4">
-                        <small>Formulário de cadastro das ações sociais realizadas pela associação.</small>
+                        <small>Formulário de cadastro de Colaboradores</small>
                         <hr>
-                        <form action="./config/cadastraAcaoSocial.jsp" method="POST" enctype="multipart/form-data">
+                        <form action="./config/cadastraColaboradores.jsp" method="POST">
                             <div class="mb-3">
-                                <label class="form-label">Nome da Ação Social</label>
-                                <input type="text" class="form-control" name="acaosocial" placeholder="Nome da Ação Social"/>
+                                <label class="form-label">Nome</label>
+                                <input type="text" class="form-control" name="nome" placeholder="Informe seu nome" />
                             </div>
-
                             <div class="mb-3">
-                                <label class="form-label">Descrição da Ação Social</label>
-                                <textarea type="text" class="form-control" name="descricao" placeholder="Descrição da Ação Social"></textarea>
-                                
+                                <label class="form-label">Telefone</label>
+                                <input type="text" class="form-control" name="telefone" placeholder="Informe o Telefone de Contato" />
                             </div>
-
                             <div class="mb-3">
-                                <label class="form-label">Data da Ação Social</label>
-                                <input type="text" class="form-control" name="data" placeholder="Data da Ação Social dd/mm/aaaa"/>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Imagem da Ação Social</label>
-                                <input type="file" class="form-control" name="file[]" multiple/>
+                                <label class="form-label">Endereço</label>
+                                <input type="text" class="form-control" name="endereco" placeholder="Informe o Endereço" />
                             </div>
                             <button type="submit" class="btn btn-primary">Cadastrar</button>
                         </form>
@@ -61,30 +53,26 @@
 
                     <div class="container-fluid px-4">
                         <hr>
-                        <small>Ações Sociais Cadastradas</small>
+                        <small>Colaboradores cadastrados</small>
                         <hr>
-
                         <table id="datatablesSimple">
                             <thead>
                                 <tr>
                                     <th>Nome</th>
-                                    <th>Descrição</th>
-                                    <th>Data</th>
-                                    <th>Imagem</th>
+                                    <th>Telefone</th>
+                                    <th>Endereço</th>
                                     <th>Ações</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
                                     <th>Nome</th>
-                                    <th>Descrição</th>
-                                    <th>Data</th>
-                                    <th>Imagem</th>
+                                    <th>Telefone</th>
+                                    <th>Endereço</th>
                                     <th>Ações</th>
                                 </tr>
                             </tfoot>
                             <tbody>
-
                                 <%
                                     Connection con = null;
                                     Statement st = null;
@@ -98,41 +86,39 @@
                                         Class.forName("org.postgresql.Driver");
                                         con = DriverManager.getConnection(url, usuario, senhaBD);
                                         st = con.createStatement();
-                                        rs = st.executeQuery("SELECT * from asociais order by id DESC");
+                                        rs = st.executeQuery("SELECT * from colaboradores order by nome");
                                         while (rs.next()) {
                                             String id = rs.getString(1);
-                                %>
-
+                                %> 
                                 <tr>
-                                    <td><%=rs.getString("acaosocial")%></td>
-                                    <td><%=rs.getString("descricao")%></td>
-                                    <td><%=rs.getString("data")%></td>
-                                    <td> <img src="../assets/<%=rs.getString("imagem")%>" width="100" /> </td>
+                                    <td><%=rs.getString("nome")%></td>
+                                    <td><%=rs.getString(3)%></td>
+                                    <td><%=rs.getString(4)%></td>
                                     <td>
-                                        <a href="editarAcaoSocial.jsp?id=<%=rs.getString("id")%>" class="text-info" ><i class="fa fa-pencil-square"></i> </a>
+                                        <a href="editarColaboradores.jsp?id=<%=rs.getString("id")%>" class="text-info" ><i class="fa fa-pencil-square"></i> </a>
                                         <a href="" class="text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<% out.print(id); %>" ><i class="fa fa-trash"></i> </a>
                                     </td>
                                 </tr>
 
                                 <!-- Modal Excluir-->
-                            <div class="modal fade" id="exampleModal<% if (id == id)
-                                    out.print(id);%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="exampleModal<% if(id==id)out.print(id); %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Excluir Ação Social</h1>
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Excluir Colaborador</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            Tem certeza que deseja excluir a Ação Social <%=rs.getString(2)%> ??
+                                            Tem certeza que deseja excluir o Membro/Colaborador <%=rs.getString(2)%> ??
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                            <a href="aSociais.jsp?funcao=excluir&id=<%=rs.getString(1)%>" class="btn btn-danger">Excluir</a>
+                                            <a href="colaboradores.jsp?funcao=excluir&id=<%=rs.getString(1)%>" class="btn btn-danger">Excluir</a>
                                         </div>
                                     </div>
                                 </div>
                             </div> <!-- Final Modal Excluir-->
+
 
                             <%
                                     }
@@ -142,28 +128,26 @@
                             %>
                             </tbody>
                         </table>
-
-                    </div>
+                    </div>                           
 
                     <%
-                        if (request.getParameter("funcao") != null && request.getParameter("funcao").equals("excluir")) {
+                        if(request.getParameter("funcao")!= null && request.getParameter("funcao").equals("excluir")){
                             String id = request.getParameter("id");
-                            try {
+                            try{
                                 Class.forName("org.postgresql.Driver");
-                                con = DriverManager.getConnection(url, usuario, senhaBD);
+                                con = DriverManager.getConnection(url,usuario,senhaBD);
                                 st = con.createStatement();
-                                st.executeUpdate("DELETE from asociais WHERE id = '" + id + "' ");
+                                st.executeUpdate("DELETE from colaboradores WHERE id = '"+id+"' ");
 
-                                response.sendRedirect("aSociais.jsp?status=3"); //Registro deletado com sucesso.
+                                response.sendRedirect("colaboradores.jsp?status=3"); //Registro deletado com sucesso.
 
-                            } catch (Exception e) {
+                            }catch(Exception e){
                                 out.println(e);
                             }
                         }
                     %>
-
                 </main>
-                <jsp:include page="./includes/footer.jsp" />
+                <jsp:include page="includes/footer.jsp" />
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

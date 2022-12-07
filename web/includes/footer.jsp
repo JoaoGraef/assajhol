@@ -9,6 +9,8 @@
             <div class="col-lg-4 text-lg-end">
                 <a class="link-dark text-decoration-none me-3" href="./admin/index.jsp">Acesso Restrito</a>
             </div>
+            
+            <div class="col-lg-3 text-lg-start">Desenvolvido por João Aloisio Graef</div>
         </div>
     </div>
 </footer>

@@ -19,8 +19,13 @@
                 </a>
                 
                 <a class="nav-link" href="aSociais.jsp">
-                    <div class="sb-nav-link-icon"><i class="fas fa-file-image"></i></div>
+                    <div class="sb-nav-link-icon"><i class="fa fa-briefcase" ></i></div>
                     Ações Sociais
+                </a>
+                
+                <a class="nav-link" href="mural.jsp">
+                    <div class="sb-nav-link-icon"><i class="fa fa-calendar"></i></div>
+                    Mural/Cronologia
                 </a>
 
 
